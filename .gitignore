@@ -2,3 +2,4 @@
 .vscode/
 avia_app/
 *.log
+.env

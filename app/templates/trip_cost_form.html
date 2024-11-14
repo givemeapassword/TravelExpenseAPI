@@ -4,17 +4,21 @@
         <div class="col-md-4 mb-3">
             <label for="country" class="form-label">Страна</label>
             <select class="form-select" id="country" required>
-                <option value="USA">США</option>
-                <option value="France">Франция</option>
-                <option value="Japan">Япония</option>
+                {% for country in countries %}
+                    <option value="{{ country.country_name }}">{{ country.country_name }}</option>
+                {% else %}
+                    <option>Нет стран</option>
+                {% endfor %}
             </select>
         </div>
         <div class="col-md-4 mb-3">
             <label for="season" class="form-label">Сезон</label>
             <select class="form-select" id="season" required>
-                <option value="summer">Лето</option>
-                <option value="winter">Зима</option>
-                <option value="offseason">Низкий сезон</option>
+                {% for season in seasons %}
+                    <option value="{{ season.season }}">{{ season.season | capitalize }}</option>
+                {% else %}
+                    <option>Нет сезонов</option>
+                {% endfor %}
             </select>
         </div>
         <div class="col-md-4 mb-3">

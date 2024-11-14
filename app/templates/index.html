@@ -8,52 +8,50 @@
     {% include 'trip_cost_form.html' %}
     
     <!-- Раздел для результатов -->
-   <!-- Раздел для результатов -->
-<div id="results" class="d-none mt-4">
-    <h3 class="text-center">Результаты расчета</h3>
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead class="table-primary">
-                <tr>
-                    <th scope="col">Категория</th>
-                    <th scope="col">Стоимость</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Общая стоимость</strong></td>
-                    <td><span id="total-cost"></span> ₽</td>
-                </tr>
-                <tr>
-                    <td><strong>Стоимость перелета</strong></td>
-                    <td><span id="flight-cost"></span> ₽</td>
-                </tr>
-                <tr>
-                    <td><strong>Стоимость проживания</strong></td>
-                    <td><span id="accommodation-cost"></span> ₽</td>
-                </tr>
-                <tr>
-                    <td><strong>Стоимость еды</strong></td>
-                    <td><span id="food-cost"></span> ₽</td>
-                </tr>
-                <tr>
-                    <td><strong>Стоимость транспорта</strong></td>
-                    <td><span id="transport-cost"></span> ₽</td>
-                </tr>
-                <tr>
-                    <td><strong>Дополнительные расходы</strong></td>
-                    <td><span id="activities-cost"></span> ₽</td>
-                </tr>
-                <tr>
-                    <td><strong>Скидка</strong></td>
-                    <td><span id="discount"></span> %</td>
-                </tr>
-            </tbody>
-        </table>
+    <div id="results" class="d-none mt-4">
+        <h3 class="text-center">Результаты расчета</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Категория</th>
+                        <th scope="col">Стоимость</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Общая стоимость</strong></td>
+                        <td><span id="total-cost"></span> ₽</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Стоимость перелета</strong></td>
+                        <td><span id="flight-cost"></span> ₽</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Стоимость проживания</strong></td>
+                        <td><span id="accommodation-cost"></span> ₽</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Стоимость еды</strong></td>
+                        <td><span id="food-cost"></span> ₽</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Стоимость транспорта</strong></td>
+                        <td><span id="transport-cost"></span> ₽</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Дополнительные расходы</strong></td>
+                        <td><span id="activities-cost"></span> ₽</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Скидка</strong></td>
+                        <td><span id="discount"></span> %</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
-    
     <!-- Информация о погоде -->
     {% include 'weather_info.html' %}
 {% endblock %}
@@ -102,6 +100,4 @@
             });
         });
     </script>
-    
 {% endblock %}
-
