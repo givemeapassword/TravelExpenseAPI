@@ -1,0 +1,36 @@
+<h2 class="text-center mb-4">Рассчитайте стоимость поездки</h2>
+<form id="trip-form">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label for="country" class="form-label">Страна</label>
+            <select class="form-select" id="country" required>
+                <option value="USA">США</option>
+                <option value="France">Франция</option>
+                <option value="Japan">Япония</option>
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="season" class="form-label">Сезон</label>
+            <select class="form-select" id="season" required>
+                <option value="summer">Лето</option>
+                <option value="winter">Зима</option>
+                <option value="offseason">Низкий сезон</option>
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="duration" class="form-label">Длительность (дней)</label>
+            <input type="number" class="form-control" id="duration" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label for="num_people" class="form-label">Количество людей</label>
+            <input type="number" class="form-control" id="num_people" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="additional_expenses" class="form-label">Дополнительные расходы</label>
+            <input type="number" class="form-control" id="additional_expenses" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Рассчитать стоимость</button>
+</form>
