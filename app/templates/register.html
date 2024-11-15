@@ -1,17 +1,29 @@
-{% extends "layout.html" %}
-
-{% block content %}
-  <h2>Register</h2>
-  <form method="POST">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
-  <p>Already have an account? <a href="{{ url_for('login') }}">Log in here</a></p>
-{% endblock %}
+<!-- Модальное окно для входа -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0 rounded-3">
+          <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">Вход в аккаунт</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="login-form">
+                  <div class="mb-4">
+                      <label for="login-username" class="form-label">Имя пользователя</label>
+                      <input type="text" class="form-control border-primary shadow-sm" id="login-username" name="username" required>
+                  </div>
+                  <div class="mb-4">
+                      <label for="login-password" class="form-label">Пароль</label>
+                      <input type="password" class="form-control border-primary shadow-sm" id="login-password" name="password" required>
+                  </div>
+                  <div class="d-grid gap-2 mb-4">
+                      <button type="submit" class="btn btn-primary btn-lg">Войти</button>
+                  </div>
+              </form>
+              <div class="text-center">
+                  <p>Нет аккаунта? <a href="{{ url_for('auth.register') }}" class="link-primary">Зарегистрируйтесь здесь</a></p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,30 +1,73 @@
-#purchase-notification {
-    background-color: #4CAF50;
+/* Кастомные стили для модальных окон */
+.modal-content {
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal-dialog {
+    animation: slide-up 0.5s ease-in-out;
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(30px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background-color: #007bff;
     color: white;
-    padding: 15px;
-    margin-top: 20px;
-    text-align: center;
-    border-radius: 5px;
 }
 
-.d-none {
-    display: none;
+.modal-body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+.modal-footer {
+    display: none; /* Убираем footer в модальных окнах */
+}
+/* Модальное окно, которое появляется поверх страницы */
+.modal.fade .modal-dialog {
+    transform: translate(0, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-#buy-ticket-btn {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin-top: 20px;
+.modal.show .modal-dialog {
+    opacity: 1;
+    transform: translate(0, 0);
 }
 
-#buy-ticket-btn:hover {
-    background-color: #0056b3;
+/* Отключаем основной контент при появлении модального окна */
+.main-content {
+    display: none; /* Скрываем основной контент */
 }
+
+/* Прокрутка страницы заблокирована при появлении модального окна */
+body {
+    overflow: hidden;
+}
+/* Стили для отображения popover рядом с кнопкой */
+.popover {
+    max-width: 300px;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.popover-header {
+    font-weight: bold;
+}
+
+.popover-body {
+    font-size: 12px;
+}
+
+
+
+
+
+
+

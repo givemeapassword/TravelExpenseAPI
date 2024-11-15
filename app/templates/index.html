@@ -88,6 +88,25 @@
     {% include 'weather_info.html' %}
 {% endblock %}
 
+{% if message %}
+<div class="modal fade show" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0 rounded-3">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Ошибка</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h4>{{ message }}</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% block scripts %}
     <!-- Подключение вашего JavaScript файла -->
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>

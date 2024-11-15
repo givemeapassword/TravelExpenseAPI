@@ -1,40 +1,46 @@
-<h2 class="text-center mb-4">Рассчитайте стоимость поездки</h2>
-<form id="trip-form">
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <label for="country" class="form-label">Страна</label>
-            <select class="form-select" id="country" required>
-                {% for country in countries %}
-                    <option value="{{ country.country_name }}">{{ country.country_name }}</option>
-                {% else %}
-                    <option>Нет стран</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-4 mb-3">
-            <label for="season" class="form-label">Сезон</label>
-            <select class="form-select" id="season" required>
-                {% for season in seasons %}
-                    <option value="{{ season.season }}">{{ season.season | capitalize }}</option>
-                {% else %}
-                    <option>Нет сезонов</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-4 mb-3">
-            <label for="duration" class="form-label">Длительность (дней)</label>
-            <input type="number" class="form-control" id="duration" required>
+<section class="trip-form-section p-4 mb-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+            <h2 class="text-center mb-4">Рассчитайте стоимость поездки</h2>
+            <form id="trip-form">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="country" class="form-label">🌍 Страна</label>
+                        <select class="form-select" id="country" required>
+                            {% for country in countries %}
+                                <option value="{{ country.country_name }}">{{ country.country_name }}</option>
+                            {% else %}
+                                <option>Нет стран</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="season" class="form-label">❄️ Сезон</label>
+                        <select class="form-select" id="season" required>
+                            {% for season in seasons %}
+                                <option value="{{ season.season }}">{{ season.season | capitalize }}</option>
+                            {% else %}
+                                <option>Нет сезонов</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="duration" class="form-label">🕒 Длительность (дней)</label>
+                        <input type="number" class="form-control" id="duration" placeholder="Например: 7" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="num_people" class="form-label">👥 Количество людей</label>
+                        <input type="number" class="form-control" id="num_people" placeholder="Например: 2" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="additional_expenses" class="form-label">💰 Дополнительные расходы</label>
+                        <input type="number" class="form-control" id="additional_expenses" placeholder="Например: 500" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-lg">✨ Рассчитать стоимость</button>
+            </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <label for="num_people" class="form-label">Количество людей</label>
-            <input type="number" class="form-control" id="num_people" required>
-        </div>
-        <div class="col-md-4 mb-3">
-            <label for="additional_expenses" class="form-label">Дополнительные расходы</label>
-            <input type="number" class="form-control" id="additional_expenses" required>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary w-100">Рассчитать стоимость</button>
-</form>
+</section>

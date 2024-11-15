@@ -17,7 +17,6 @@ def login():
         
         if user and check_password_hash(user.password, password):
             login_user(user)
-            # Используем текущий контекст для логирования
             logging.getLogger().info(f'User {username} logged in successfully.')
             flash('Logged in successfully!', 'success')
             return redirect(url_for('main_bp.index'))  # Перенаправляем на главную страницу

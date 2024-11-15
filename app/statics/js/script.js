@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // Обработчик отправки формы
+    // Обработчик отправки формы для расчета стоимости
     $('#trip-form').on('submit', function(e) {
         e.preventDefault();
 
@@ -36,7 +36,24 @@ $(document).ready(function() {
                 alert('Произошла ошибка при расчете стоимости!');
             }
         });
-
-        // Дополнительно можно добавить запрос погоды через API
     });
+
+     // Инициализация Bootstrap popover
+     $('[data-bs-toggle="popover"]').popover({
+        html: true,
+        content: function() {
+            var title = $(this).data('title');
+            var duration = $(this).data('duration');
+            var price = $(this).data('price');
+            var includes = $(this).data('includes');
+
+            return `
+                <div><strong>${title}</strong></div>
+                <div>${duration}</div>
+                <div>${price}</div>
+                <div>${includes}</div>
+            `;
+        }
+    });
+    
 });

@@ -1,68 +1,29 @@
-<header class="bg-primary text-white py-3">
-  <div class="container d-flex justify-content-between align-items-center">
-      <h1 class="h4">
-        <i class="fa-brands fa-fly fa-xl"></i> АвиаTickets
-      </h1>
-       <!-- Поле поиска -->
-       <form class="d-flex ms-3 w-50" action="/search" method="GET">
-        <input class="form-control me-2 flex-grow-1" type="search" name="query" placeholder="Поиск" aria-label="Поиск">
-        <button class="btn btn-light" type="submit">Найти</button>
-    </form>
-      <nav>
-          <!-- Кнопки для входа и регистрации -->
-          <button class="btn btn-light me-3" data-bs-toggle="modal" data-bs-target="#loginModal">Войти</button>
-          <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</button>
-      </nav>
-  </div>
+<header class="bg-primary text-white py-3 shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Логотип и название -->
+        <h1 class="h4 d-flex align-items-center mb-0">
+            <i class="fa-brands fa-fly fa-xl me-2"></i>
+            <span class="fw-bold">АвиаTickets</span>
+        </h1>
+
+        <!-- Поле поиска -->
+        <form class="d-flex ms-3 w-50" action="/search" method="GET">
+            <div class="input-group">
+                <input class="form-control" type="search" name="query" placeholder="Поиск..." aria-label="Поиск">
+                <button class="btn btn-light border-0" type="submit">
+                    <i class="bi bi-search"></i> Поиск
+                </button>
+            </div>
+        </form>
+
+        <!-- Кнопки входа и регистрации -->
+        <div class="d-flex">
+            <button class="btn btn-outline-light me-3" data-bs-toggle="modal" data-bs-target="#loginModal">Войти</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</button>
+        </div>
+    </div>
 </header>
 
-<!-- Модальное окно для входа -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="loginModalLabel">Вход</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="login-form">
-            <div class="mb-3">
-                <label for="login-username" class="form-label">Имя пользователя</label>
-                <input type="text" class="form-control" id="login-username" name="username" required>
-            </div>
-            <div class="mb-3">
-                <label for="login-password" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="login-password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Войти</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Модальное окно для регистрации -->
-<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="register-form">
-            <div class="mb-3">
-                <label for="register-username" class="form-label">Имя пользователя</label>
-                <input type="text" class="form-control" id="register-username" name="username" required>
-            </div>
-            <div class="mb-3">
-                <label for="register-password" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="register-password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Зарегистрироваться</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- Подключаем модальные окна -->
+{% include 'login.html' %}
+{% include 'register.html' %}
