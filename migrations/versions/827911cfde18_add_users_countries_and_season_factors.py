@@ -45,22 +45,27 @@ def upgrade():
         sa.UniqueConstraint('username')
     )
     
-    # Добавление начальных данных для таблицы countries
+
     op.execute("""
         INSERT INTO countries (country_name, flight, accommodation, food, transport)
         VALUES
         ('USA', 500, 100, 50, 30),
         ('France', 400, 120, 60, 40),
-        ('Japan', 600, 150, 70, 50);
+        ('Japan', 600, 150, 70, 50),
+        ('Germany', 550, 110, 55, 35),
+        ('Italy', 450, 130, 65, 45),
+        ('Australia', 700, 160, 80, 60);
     """)
 
-    # Добавление начальных данных для таблицы season_factors
+
     op.execute("""
         INSERT INTO season_factors (season, factor)
         VALUES
         ('summer', 1.2),
         ('winter', 1.5),
-        ('offseason', 0.8);
+        ('offseason', 0.8),
+        ('spring', 1.1),
+        ('autumn', 1.0);
     """)
 
 def downgrade():

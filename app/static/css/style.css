@@ -1,0 +1,32 @@
+/* Увеличение картинки при наведении */
+
+
+.btn-primary {
+    background-color: #4CAF50;  /* Зеленый для кнопок */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+
+
+@media (max-width: 767px) {
+    .card {
+        margin-bottom: 20px;
+        transform: scale(1);
+    }
+}
+
+.btn:hover {
+    background-color: #28a745;  /* Цвет фона */
+    transform: scale(1.01);     /* Увеличение кнопки */
+    border: 1px solid #218838;  /* Цвет границы при наведении */
+    transition: all 0.1s ease;  /* Плавное изменение */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}

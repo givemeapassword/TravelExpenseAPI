@@ -3,10 +3,10 @@
 {% block content %}
     <!-- Список туров -->
     {% include 'tour_list.html' %}
-    
+
     <!-- Форма для расчета стоимости -->
     {% include 'trip_cost_form.html' %}
-    
+
     <!-- Раздел для результатов -->
     <div id="results" class="d-none mt-4">
         <h3 class="text-center">Результаты расчета</h3>
@@ -49,6 +49,38 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="container mt-4 text-center">
+                <button id="buy-ticket" class="btn btn-success btn-lg">Хотите купить билет?</button>
+            </div>
+            
+            <!-- Модальное окно для подтверждения -->
+            <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="ticketModalLabel">Подтверждение</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                  </div>
+                  <div class="modal-body text-center">
+                    <!-- Используем карточку для оформления сообщения -->
+                    <div class="alert alert-success d-flex align-items-center justify-content-center" role="alert">
+                        <i class="bi bi-check-circle-fill" style="font-size: 2rem; margin-right: 10px;"></i>
+                        <strong>Вы купили билет!</strong>
+                    </div>
+                </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Ок</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Toast для сообщения -->
+            <div id="buyToast" class="toast" data-bs-delay="3000">
+                <div class="toast-body">
+                    Вы купили билет!
+                </div>
+            </div>
         </div>
     </div>
 
@@ -57,47 +89,6 @@
 {% endblock %}
 
 {% block scripts %}
-    <script>
-        $(document).ready(function() {
-            $('#trip-form').submit(function(event) {
-                event.preventDefault();  // предотвращаем стандартное поведение формы
-
-                // Получаем данные из формы
-                const country = $('#country').val();
-                const season = $('#season').val();
-                const duration = $('#duration').val();
-                const num_people = $('#num_people').val();
-                const additional_expenses = $('#additional_expenses').val();
-
-                // Отправляем данные на сервер
-                $.ajax({
-                    url: '/api/calculate_trip_cost',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        country: country,
-                        season: season,
-                        duration: duration,
-                        num_people: num_people,
-                        additional_expenses: additional_expenses
-                    }),
-                    success: function(response) {
-                        // Когда расчет успешен, показываем результаты
-                        $('#results').removeClass('d-none');  // показываем блок результатов
-                        $('#total-cost').text(response.total_cost);
-                        $('#flight-cost').text(response.breakdown.flight);
-                        $('#accommodation-cost').text(response.breakdown.accommodation);
-                        $('#food-cost').text(response.breakdown.food);
-                        $('#transport-cost').text(response.breakdown.transport);
-                        $('#activities-cost').text(response.breakdown.activities);
-                        $('#discount').text(response.breakdown.discount);
-                    },
-                    error: function(xhr) {
-                        // Показываем сообщение об ошибке
-                        alert("Ошибка: " + xhr.responseJSON.error);
-                    }
-                });
-            });
-        });
-    </script>
+    <!-- Подключение вашего JavaScript файла -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 {% endblock %}

@@ -60,8 +60,6 @@ def logout():
 # API для расчета стоимости поездки
 @main_bp.route('/api/calculate_trip_cost', methods=['POST'])
 def calculate_trip_cost():
-    if 'user' not in session:
-        return jsonify({"error": "Пользователь не авторизован"}), 401
 
     data = request.json
     total_cost, breakdown = calculate_total_cost(data)

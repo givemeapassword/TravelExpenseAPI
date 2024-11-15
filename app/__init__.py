@@ -14,7 +14,7 @@ def create_app():
     # Инициализация расширений
     db.init_app(app)
     migrate.init_app(app, db)
-
+    
     # Импортируем маршруты
     from app.routes import main_bp
     app.register_blueprint(main_bp)
