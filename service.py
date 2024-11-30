@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from flasgger import Swagger
 
 app = Flask(__name__)
@@ -80,7 +79,3 @@ def get_trip_cost_info():
     }
 
     return jsonify(cost_info)
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
