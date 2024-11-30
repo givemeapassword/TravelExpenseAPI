@@ -5,3 +5,8 @@
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
+    
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/handler/api/:splat"
+  status = 200
