@@ -1,19 +1,19 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from flasgger import Swagger
 
 app = Flask(__name__)
-
-# Укажите путь к вашему YAML файлу
 swagger = Swagger(app, template_file='swagger.yml')
 
-base_cost = {
+# Базовые данные
+DISCOUNT_PERCENTAGE = 0.1  # 10% скидки за каждого человека, начиная с 3-го
+MAX_DISCOUNT = 0.4  # Максимальная скидка - 40% от стоимости
+BASE_COST = {
     "USA": {"flight": 600, "accommodation": 150, "food": 30, "transport": 20},
     "France": {"flight": 500, "accommodation": 200, "food": 25, "transport": 15},
     "Japan": {"flight": 800, "accommodation": 250, "food": 35, "transport": 25}
 }
 
-seasonal_factors = {
+SEASONAL_FACTORS = {
     "summer": 1.2,
     "winter": 1.5,
     "offseason": 1.0
@@ -22,64 +22,74 @@ seasonal_factors = {
 @app.route('/api/calculate_trip_cost', methods=['POST'])
 def calculate_trip_cost():
     data = request.json
-    country = data['country']
-    season = data['season']
-    duration = data['duration']
-    additional_expenses = data['additional_expenses']
-    num_people = data['num_people']
-    
-    if country not in base_cost:
-        return jsonify({"error": "Страна не поддерживается"}), 400
+    try:
+        # Извлечение и валидация параметров
+        country = data['country']
+        season = data['season']
+        duration = int(data['duration'])
+        additional_expenses = float(data['additional_expenses'])
+        num_people = int(data['num_people'])
 
-    if season not in seasonal_factors:
-        return jsonify({"error": "Сезон не поддерживается"}), 400
-    
-    flight_cost = base_cost[country]["flight"] * seasonal_factors[season] * num_people
-    accommodation_cost = base_cost[country]["accommodation"] * duration * num_people
-    food_cost = base_cost[country]["food"] * duration * num_people
-    transport_cost = base_cost[country]["transport"] * duration * num_people
-    
-    # Пример групповой скидки
-    discount = 0
-    if num_people > 2:
-        discount = 0.1 * (flight_cost + accommodation_cost + food_cost + transport_cost + additional_expenses)
+        if country not in BASE_COST or season not in SEASONAL_FACTORS:
+            return jsonify({"error": "Неверная страна или сезон"}), 400
 
-    total_cost = (flight_cost + accommodation_cost + food_cost + transport_cost +
-                  additional_expenses - discount)
-    
-    return jsonify({
-        "total_cost": total_cost,
-        "breakdown": {
-            "flight": flight_cost,
-            "accommodation": accommodation_cost,
-            "food": food_cost,
-            "transport": transport_cost,
-            "activities": additional_expenses,
-            "discount": discount
-        }
-    })
+        # Расчет стоимости
+        base = BASE_COST[country]
+        seasonal_multiplier = SEASONAL_FACTORS[season]
+
+        flight_cost = base["flight"] * seasonal_multiplier * num_people
+        accommodation_cost = base["accommodation"] * duration * num_people
+        food_cost = base["food"] * duration * num_people
+        transport_cost = base["transport"] * duration * num_people
+
+        total = flight_cost + accommodation_cost + food_cost + transport_cost + additional_expenses
+
+        # Логика скидки
+        if num_people > 2:
+            # Скидка начинается с 3-го человека
+            discount_percentage = (num_people - 2) * DISCOUNT_PERCENTAGE
+            # Ограничение скидки до 40%
+            discount_percentage = min(discount_percentage, MAX_DISCOUNT)
+        else:
+            discount_percentage = 0  # Нет скидки для 2 или меньше человек
+        # Скидка
+        discount_amount = total * discount_percentage  # Рассчитываем скидку от общей стоимости
+        total_cost = total - discount_amount  # Итоговая стоимость после скидки
+
+        return jsonify({
+            "total_cost": round(total_cost, 2),
+            "breakdown": {
+                "flight": round(flight_cost, 2),
+                "accommodation": round(accommodation_cost, 2),
+                "food": round(food_cost, 2),
+                "transport": round(transport_cost, 2),
+                "activities": round(additional_expenses, 2),
+                "discount": round(discount_percentage*100, 2)
+            }
+        })
+    except (KeyError, ValueError, TypeError):
+        return jsonify({"error": "Некорректные данные"}), 400
+
 
 @app.route('/api/get_trip_cost_info', methods=['GET'])
 def get_trip_cost_info():
     country = request.args.get('country')
     season = request.args.get('season')
 
-    if country not in base_cost:
-        return jsonify({"error": "Страна не поддерживается"}), 400
-    
-    if season not in seasonal_factors:
-        return jsonify({"error": "Сезон не поддерживается"}), 400
+    if country not in BASE_COST or season not in SEASONAL_FACTORS:
+        return jsonify({"error": "Неверная страна или сезон"}), 400
 
-    cost_info = {
+    base = BASE_COST[country]
+    seasonal_multiplier = SEASONAL_FACTORS[season]
+
+    return jsonify({
         "country": country,
         "season": season,
-        "flight_cost": base_cost[country]["flight"] * seasonal_factors[season],
-        "accommodation_cost": base_cost[country]["accommodation"],
-        "food_cost": base_cost[country]["food"],
-        "transport_cost": base_cost[country]["transport"]
-    }
-
-    return jsonify(cost_info)
+        "flight_cost": round(base["flight"] * seasonal_multiplier, 2),
+        "accommodation_cost": round(base["accommodation"], 2),
+        "food_cost": round(base["food"], 2),
+        "transport_cost": round(base["transport"], 2)
+    })
 
 
 if __name__ == '__main__':
